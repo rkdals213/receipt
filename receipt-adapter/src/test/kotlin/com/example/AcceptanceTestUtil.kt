@@ -1,4 +1,4 @@
-package com.example.cleanarchitecture
+package com.example
 
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.response.ExtractableResponse
@@ -28,17 +28,6 @@ fun postResource(
 ): ExtractableResponse<Response> {
     return request.with()
         .post(url)
-        .then()
-        .log().all()
-        .extract()
-}
-
-fun putResource(
-    request: RequestSpecification = givenRequestSpecification(),
-    url: String
-): ExtractableResponse<Response> {
-    return request.with()
-        .put(url)
         .then()
         .log().all()
         .extract()

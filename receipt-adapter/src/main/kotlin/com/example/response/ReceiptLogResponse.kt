@@ -3,11 +3,11 @@ package com.example.response
 import com.example.consts.ReceiptType
 import java.math.BigDecimal
 
-data class ReceiptResponses(
-    val receiptResponses: List<ReceiptResponse>
+data class ReceiptLogResponses(
+    val receiptLogResponses: List<ReceiptLogResponse>
 )
 
-data class ReceiptResponse(
+data class ReceiptLogResponse(
     val id: Long,
     val receiptId: String,
     val billSequenceId: String,

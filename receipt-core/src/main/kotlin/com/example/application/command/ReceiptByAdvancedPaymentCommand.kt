@@ -1,9 +1,7 @@
-package com.example.command
-
-import java.time.YearMonth
+package com.example.application.command
 
 data class ReceiptByAdvancedPaymentCommand(
-    val billCycle: String,
-    val billTargetYearMonth: YearMonth,
+    val paymentId: String,
+    val billSequenceId: String,
     val advancedPaymentId: String
 )

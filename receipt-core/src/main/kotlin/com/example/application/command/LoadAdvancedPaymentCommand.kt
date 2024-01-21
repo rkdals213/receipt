@@ -1,5 +1,5 @@
-package com.example.request
+package com.example.application.command
 
-data class LoadAdvancedPaymentRequest(
+data class LoadAdvancedPaymentCommand(
     val paymentId: String
 )

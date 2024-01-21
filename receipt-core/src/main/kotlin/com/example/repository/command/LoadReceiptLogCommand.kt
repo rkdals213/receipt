@@ -1,5 +1,5 @@
 package com.example.repository.command
 
-data class LoadReceiptCommand(
+data class LoadReceiptLogCommand(
     val billSequenceId: String
 )

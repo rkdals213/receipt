@@ -1,16 +1,18 @@
 package com.example.entity
 
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
 import java.math.BigDecimal
-import java.time.YearMonth
 
 @Entity
-class ChargeEntity(
+class ReceiptTargetEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
 
-    val billTargetYearMonth: YearMonth,
+    val billSequenceId: String,
 
     val contractId: String,
 
@@ -23,16 +25,8 @@ class ChargeEntity(
     val amount: BigDecimal,
 
     var receiptAmount: BigDecimal,
-)
-
-@Converter(autoApply = true)
-class YearMonthConverter : AttributeConverter<YearMonth, String> {
-
-    override fun convertToDatabaseColumn(attribute: YearMonth): String {
-        return "${attribute.year}${attribute.month}"
-    }
-
-    override fun convertToEntityAttribute(dbValue: String): YearMonth {
-        return YearMonth.of(dbValue.substring(0, 4).toInt(), dbValue.substring(4, 6).toInt())
+) {
+    override fun toString(): String {
+        return "ReceiptTargetEntity(id=$id, billSequenceId='$billSequenceId', contractId='$contractId', paymentId='$paymentId', customerId='$customerId', serviceCode='$serviceCode', amount=$amount, receiptAmount=$receiptAmount)"
     }
 }

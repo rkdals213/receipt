@@ -1,7 +1,10 @@
-package com.example.out.persistence.repository
+package com.example.repository
 
-import com.example.out.persistence.entity.ReceiptTargetEntity
+import com.example.entity.ReceiptTargetEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface ReceiptTargetEntityRepository : JpaRepository<ReceiptTargetEntity, Long> {
+    fun findByPaymentIdAndBillSequenceId(paymentId: String, billSequenceId: String): List<ReceiptTargetEntity>
+
+    fun findByBillSequenceIdIn(billSequenceIds: List<String>): List<ReceiptTargetEntity>
 }

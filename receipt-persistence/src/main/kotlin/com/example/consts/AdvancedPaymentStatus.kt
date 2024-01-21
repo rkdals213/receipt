@@ -1,3 +1,5 @@
 package com.example.consts
 
-data class AdvancedPaymentStatus()
+enum class AdvancedPaymentStatus {
+    OCCURRENCE, REPLACED, NONE
+}

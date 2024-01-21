@@ -1,14 +1,8 @@
-POST http://localhost:8080/receipt/by/deposit
+POST http://localhost:8080/receipt/by/advancedPayment
 Content-Type: application/json
 
 {
-    "billCycle": "01",
-    "billTargetYearMonth": [
-        2024,
-        1
-    ],
-    "depositAmount": 20000,
-    "accountNumber": "1010101010",
-    "depositType": "CARD",
-    "bank": "KB"
+  "billSequenceId": "202402P000000001",
+  "paymentId": "P000000001",
+  "advancedPaymentId": "ADVANCED-96102b61-fb4a-4832-bd5a-f300dc40a624"
 }

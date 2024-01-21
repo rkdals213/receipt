@@ -1,13 +1,12 @@
-package com.example.command
+package com.example.application.command
 
 import com.example.consts.Bank
 import com.example.consts.DepositType
 import java.math.BigDecimal
-import java.time.YearMonth
 
 data class ReceiptByDepositCommand(
-    val billCycle: String,
-    val billTargetYearMonth: YearMonth,
+    val paymentId: String,
+    val billSequenceId: String,
     val depositAmount: BigDecimal,
     val accountNumber: String,
     val depositType: DepositType,
