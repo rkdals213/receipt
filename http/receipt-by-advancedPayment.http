@@ -1,0 +1,14 @@
+POST http://localhost:8080/receipt/by/deposit
+Content-Type: application/json
+
+{
+    "billCycle": "01",
+    "billTargetYearMonth": [
+        2024,
+        1
+    ],
+    "depositAmount": 20000,
+    "accountNumber": "1010101010",
+    "depositType": "CARD",
+    "bank": "KB"
+}
