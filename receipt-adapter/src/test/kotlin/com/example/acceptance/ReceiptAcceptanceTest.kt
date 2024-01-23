@@ -29,28 +29,28 @@ class ReceiptAcceptanceTest @Autowired constructor(
     @DisplayName("입금 금액이 청구금액보다 큰 경우")
     fun receiptByDeposit01() {
         수납_타겟_데이터_등록되어있음(
-            기본료_수납_대상_데이터(PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID, 기본료),
-            스타클럽할인_수납_대상_데이터(PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID, 스타클럽할인),
-            부가세_수납_대상_데이터(PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID, 부가세)
+            수납_대상_데이터(기본료, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID),
+            수납_대상_데이터(스타클럽할인, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID),
+            수납_대상_데이터(부가세, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID)
         )
 
         val receiptByDepositRequest = 입금_요청_데이터(JANUARY_BILL_SEQUENCE_ID, LARGE_DEPOSIT_AMOUNT)
         입금으로_수납_요청(receiptByDepositRequest)
 
         val receiptResponse = 수납_조회_요청(JANUARY_BILL_SEQUENCE_ID)
-        수납_조회_요청됨(receiptResponse, 기본료 + 스타클럽할인 + 부가세)
+        수납_조회_요청됨(receiptResponse, 기본료.amount + 스타클럽할인.amount + 부가세.amount)
 
         val advancedPaymentResponse = 선수금_조회_요청(PAYMENT_ID)
-        선수금_조회_요청됨(advancedPaymentResponse, AdvancedPaymentStatus.OCCURRENCE, LARGE_DEPOSIT_AMOUNT - 기본료 - 스타클럽할인 - 부가세, BigDecimal.ZERO)
+        선수금_조회_요청됨(advancedPaymentResponse, AdvancedPaymentStatus.OCCURRENCE, LARGE_DEPOSIT_AMOUNT - 기본료.amount - 스타클럽할인.amount - 부가세.amount, BigDecimal.ZERO)
     }
 
     @Test
     @DisplayName("입금 금액이 청구금액보다 작은 경우")
     fun receiptByDeposit02() {
         수납_타겟_데이터_등록되어있음(
-            기본료_수납_대상_데이터(PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID, 기본료),
-            스타클럽할인_수납_대상_데이터(PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID, 스타클럽할인),
-            부가세_수납_대상_데이터(PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID, 부가세)
+            수납_대상_데이터(기본료, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID),
+            수납_대상_데이터(스타클럽할인, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID),
+            수납_대상_데이터(부가세, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID)
         )
 
         val receiptByDepositRequest = 입금_요청_데이터(JANUARY_BILL_SEQUENCE_ID, SMALL_DEPOSIT_AMOUNT)
@@ -64,9 +64,9 @@ class ReceiptAcceptanceTest @Autowired constructor(
     @DisplayName("선수금 금액이 청구금액보다 큰 경우")
     fun receiptByAdvancedPayment02() {
         수납_타겟_데이터_등록되어있음(
-            기본료_수납_대상_데이터(PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID, 기본료),
-            스타클럽할인_수납_대상_데이터(PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID, 스타클럽할인),
-            부가세_수납_대상_데이터(PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID, 부가세)
+            수납_대상_데이터(기본료, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID),
+            수납_대상_데이터(스타클럽할인, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID),
+            수납_대상_데이터(부가세, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID)
         )
 
         val advancedPaymentEntity = 선수금_데이터(PAYMENT_ID, LARGE_DEPOSIT_AMOUNT)
@@ -76,7 +76,7 @@ class ReceiptAcceptanceTest @Autowired constructor(
         선수금으로_수납_요청(receiptByAdvancedPaymentRequest)
 
         val advancedPaymentResponse = 선수금_조회_요청(PAYMENT_ID)
-        선수금_조회_요청됨(advancedPaymentResponse, AdvancedPaymentStatus.OCCURRENCE, LARGE_DEPOSIT_AMOUNT, 기본료 + 스타클럽할인 + 부가세)
+        선수금_조회_요청됨(advancedPaymentResponse, AdvancedPaymentStatus.OCCURRENCE, LARGE_DEPOSIT_AMOUNT, 기본료.amount + 스타클럽할인.amount + 부가세.amount)
     }
 
     private fun 수납_타겟_데이터_등록되어있음(vararg receiptTargetEntity: ReceiptTargetEntity) {
@@ -97,8 +97,8 @@ class ReceiptAcceptanceTest @Autowired constructor(
         private val LARGE_DEPOSIT_AMOUNT = BigDecimal.valueOf(100_000)
         private const val JANUARY_BILL_SEQUENCE_ID = "202401P000000001"
 
-        private val 기본료 = BigDecimal.valueOf(20_000)
-        private val 스타클럽할인 = BigDecimal.valueOf(-2_000)
-        private val 부가세 = BigDecimal.valueOf(1_800)
+        private val 기본료 = ChargeType("SR001", BigDecimal.valueOf(20_000))
+        private val 스타클럽할인 = ChargeType("SR144", BigDecimal.valueOf(-2_000))
+        private val 부가세 = ChargeType("SR002", BigDecimal.valueOf(1_800))
     }
 }

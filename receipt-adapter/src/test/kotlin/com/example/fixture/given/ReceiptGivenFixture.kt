@@ -7,33 +7,13 @@ import com.example.request.ReceiptByAdvancedPaymentRequest
 import com.example.request.ReceiptByDepositRequest
 import java.math.BigDecimal
 
-fun 기본료_수납_대상_데이터(paymentId: String, billSequenceId: String, amount: BigDecimal) = ReceiptTargetEntity(
+fun 수납_대상_데이터(chargeType: ChargeType, paymentId: String, billSequenceId: String) = ReceiptTargetEntity(
     billSequenceId = billSequenceId,
     contractId = "C000000001",
     paymentId = paymentId,
     customerId = "100000000000000",
-    serviceCode = "SR001",
-    amount = amount,
-    receiptAmount = BigDecimal.ZERO,
-)
-
-fun 스타클럽할인_수납_대상_데이터(paymentId: String, billSequenceId: String, amount: BigDecimal) = ReceiptTargetEntity(
-    billSequenceId = billSequenceId,
-    contractId = "C000000001",
-    paymentId = paymentId,
-    customerId = "100000000000000",
-    serviceCode = "SR144",
-    amount = amount,
-    receiptAmount = BigDecimal.ZERO,
-)
-
-fun 부가세_수납_대상_데이터(paymentId: String, billSequenceId: String, amount: BigDecimal) = ReceiptTargetEntity(
-    billSequenceId = billSequenceId,
-    contractId = "C000000001",
-    paymentId = paymentId,
-    customerId = "100000000000000",
-    serviceCode = "SR002",
-    amount = amount,
+    serviceCode = chargeType.serviceCode,
+    amount = chargeType.amount,
     receiptAmount = BigDecimal.ZERO,
 )
 
@@ -41,7 +21,7 @@ fun 입금_요청_데이터(billSequenceId: String, amount: BigDecimal) = Receip
     paymentId = "P000000001",
     billSequenceId = billSequenceId,
     depositAmount = amount,
-    accountNumber = "1010101010",
+    accountNumber = "",
     depositType = DepositType.CARD,
     bank = Bank.KB
 )
@@ -50,4 +30,9 @@ fun 선수금_대체_입금_요청_데이터(paymentId: String, billSequenceId: 
     paymentId = paymentId,
     billSequenceId = billSequenceId,
     advancedPaymentId = advancedPaymentId
+)
+
+data class ChargeType(
+    var serviceCode: String,
+    var amount: BigDecimal
 )

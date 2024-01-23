@@ -1,9 +1,9 @@
 package com.example.domain
 
-import com.example.domain.command.ByDeposit
-import com.example.domain.command.ReceiptCommand
 import com.example.consts.AdvancedPaymentStatus
 import com.example.consts.ReceiptType
+import com.example.domain.command.ByDeposit
+import com.example.domain.command.ReceiptCommand
 import com.example.utils.generateUUID
 import java.math.BigDecimal
 
@@ -16,6 +16,7 @@ class ReceiptByDeposit(
         val byDeposit = receiptCommand as ByDeposit
 
         var remains = byDeposit.amount
+        require(remains >= BigDecimal.ZERO) { "입금금액은 양수여야합니다" }
 
         remains = receipt(discounts, remains, ReceiptType.DEPOSIT, byDeposit.depositId)
         remains = receipt(billings, remains, ReceiptType.DEPOSIT, byDeposit.depositId)
