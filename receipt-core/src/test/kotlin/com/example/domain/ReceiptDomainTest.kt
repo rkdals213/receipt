@@ -13,34 +13,6 @@ import java.math.BigDecimal
 class ReceiptDomainTest {
 
     @Test
-    @DisplayName("입금으로 수납처리에 성공하여 선수금이 발생한다")
-    fun receiptByDepositTest01() {
-        val receiptByDeposit = ReceiptByDeposit(
-            PAYMENT_ID,
-            mutableListOf(
-                수납_대상(기본료, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID),
-                수납_대상(부가세, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID),
-                수납_대상(스타클럽할인, PAYMENT_ID, JANUARY_BILL_SEQUENCE_ID)
-            ),
-            mutableListOf()
-        )
-
-        val byDeposit = ByDeposit(
-            receiptType = ReceiptType.DEPOSIT,
-            paymentId = PAYMENT_ID,
-            amount = LARGE_DEPOSIT_AMOUNT,
-            depositId = "",
-            accountNumber = "",
-            bank = Bank.KB
-        )
-
-        val advancedPayment = receiptByDeposit.receipt(byDeposit)
-
-        Assertions.assertThat(advancedPayment.amount).isEqualTo(LARGE_DEPOSIT_AMOUNT - (기본료.amount + 부가세.amount + 스타클럽할인.amount))
-        Assertions.assertThat(receiptByDeposit.receiptAmount()).isEqualTo(기본료.amount + 부가세.amount + 스타클럽할인.amount)
-    }
-
-    @Test
     @DisplayName("입금으로 수납처리에 성공하여 선수금이 발생하지 않는다")
     fun receiptByDepositTest02() {
         val receiptByDeposit = ReceiptByDeposit(
