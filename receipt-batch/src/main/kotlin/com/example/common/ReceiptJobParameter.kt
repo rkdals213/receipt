@@ -10,7 +10,8 @@ import java.time.format.DateTimeFormatter
 @JobParameter
 class ReceiptJobParameter(
     val requestDate: LocalDateTime,
-    val billYearMonth: String
+    val billYearMonth: String,
+    val fileName: String
 )
 
 @Configuration
@@ -19,11 +20,12 @@ class JobParameterConfiguration {
     @JobScope
     fun jobParameter(
         @Value("#{jobParameters[requestDate]}") requestDate: String,
-        @Value("#{jobParameters[billYearMonth]}") billYearMonth: String
+        @Value("#{jobParameters[billYearMonth]}") billYearMonth: String,
+        @Value("#{jobParameters[fileName]}") fileName: String
     ): ReceiptJobParameter {
         val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
         val dateTime = LocalDateTime.parse(requestDate, formatter)
 
-        return ReceiptJobParameter(dateTime, billYearMonth)
+        return ReceiptJobParameter(dateTime, billYearMonth, fileName)
     }
 }
