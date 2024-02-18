@@ -9,6 +9,7 @@ import com.example.domain.Deposit
 import com.example.domain.ReceiptLog
 import com.example.domain.command.ByAdvancedPayment
 import com.example.domain.command.ByDeposit
+import com.example.infrastructure.AccountingClient
 import com.example.repository.*
 import com.example.repository.command.LoadReceiptLogCommand
 import com.example.repository.command.LoadReceiptTargetCommand
@@ -28,7 +29,8 @@ class ReceiptService(
     private val saveReceipt: SaveReceipt,
     private val saveDeposit: SaveDeposit,
     private val loadAdvancedPayment: LoadAdvancedPayment,
-    private val saveAdvancedPayment: SaveAdvancedPayment
+    private val saveAdvancedPayment: SaveAdvancedPayment,
+    private val accountingClient: AccountingClient
 ) : ReceiptUseCase {
     override fun loadReceiptByBillSequenceId(loadReceiptCommand: LoadReceiptCommand): List<ReceiptLog> {
         return loadReceipt.loadReceiptLog(
@@ -71,6 +73,8 @@ class ReceiptService(
         if (advancedPayment.advancedPaymentStatus == AdvancedPaymentStatus.OCCURRENCE) {
             saveAdvancedPayment.save(advancedPayment)
         }
+
+        accountingClient.accountingTreatment()
     }
 
     @Transactional
