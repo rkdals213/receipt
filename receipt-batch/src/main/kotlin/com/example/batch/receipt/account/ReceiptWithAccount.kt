@@ -38,7 +38,6 @@ class ReceiptWithAccount(
             .listener(CustomChunkListener())
             .reader(receiptWithAccountReader.readReceiptFile())
             .writer(receiptWithAccountWriter.receiptWithAccountWriter1())
-//            .writer(receiptWithAccountWriter.receiptWithAccountWriter2())
             .build()
     }
 }

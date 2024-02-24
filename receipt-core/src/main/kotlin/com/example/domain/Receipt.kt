@@ -1,7 +1,7 @@
 package com.example.domain
 
-import com.example.domain.command.ReceiptCommand
 import com.example.consts.ReceiptType
+import com.example.domain.command.ReceiptCommand
 import com.example.utils.generateUUID
 import java.math.BigDecimal
 

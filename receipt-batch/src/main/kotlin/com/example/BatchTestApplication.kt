@@ -27,7 +27,6 @@ fun main(args: Array<String>) {
     exitProcess(exitCode)
 }
 
-
 @Component
 @Profile("batch")
 class InitService(

@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.springframework.boot") version "3.2.1"
@@ -8,18 +7,20 @@ plugins {
     kotlin("plugin.spring") version "1.9.21"
 }
 
-group = "com.example"
-version = "0.0.1-SNAPSHOT"
-
 java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
 
 allprojects {
+    group = "com.example"
+    version = "0.0.1-SNAPSHOT"
+
     repositories {
         mavenCentral()
     }
+}
 
+subprojects {
     apply {
         plugin("org.jetbrains.kotlin.jvm")
         plugin("io.spring.dependency-management")
@@ -53,9 +54,3 @@ allprojects {
         jvmToolchain(17)
     }
 }
-
-val jar: Jar by tasks
-val bootJar: BootJar by tasks
-
-jar.enabled = true
-bootJar.enabled = false

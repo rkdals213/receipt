@@ -1,6 +1,14 @@
-dependencies {
-    api(project(":receipt-persistence"))
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0")
+dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
+}
+
+
+tasks.withType<BootJar> {
+    enabled = false
+}
+
+tasks.withType<Jar> {
+    enabled = true
 }

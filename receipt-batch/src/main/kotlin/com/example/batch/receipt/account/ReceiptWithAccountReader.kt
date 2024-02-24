@@ -1,6 +1,5 @@
 package com.example.batch.receipt.account
 
-import com.example.common.ReceiptJobParameter
 import org.springframework.batch.core.configuration.annotation.StepScope
 import org.springframework.batch.item.file.FlatFileItemReader
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder
