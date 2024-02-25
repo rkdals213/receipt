@@ -7,9 +7,9 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 
 @Repository
-class ReceiptJpaRepository(
-    private val receiptTargetEntityRepository: ReceiptTargetEntityRepository,
-    private val receiptEntityRepository: ReceiptEntityRepository
+class ReceiptJdbcRepository(
+    private val receiptTargetEntityDao: ReceiptTargetEntityDao,
+    private val receiptEntityDao: ReceiptEntityDao
 ) {
     fun save(receipt: Receipt) {
         val receiptEntities = receipt.receiptLogs.map {
@@ -28,12 +28,12 @@ class ReceiptJpaRepository(
             )
         }
 
-        receiptEntityRepository.saveAll(receiptEntities)
+        receiptEntityDao.saveAll(receiptEntities)
 
         receipt.receiptTargets.forEach {
-            val receiptTargetEntity = receiptTargetEntityRepository.findByIdOrNull(it.id) ?: throw RuntimeException()
+            val receiptTargetEntity = receiptTargetEntityDao.findByIdOrNull(it.id) ?: throw RuntimeException()
             receiptTargetEntity.receiptAmount = it.receiptAmount
-            receiptTargetEntityRepository.save(receiptTargetEntity)
+            receiptTargetEntityDao.save(receiptTargetEntity)
         }
     }
 }

@@ -8,3 +8,7 @@ include("receipt-data")
 include("receipt-data:jpa")
 findProject(":receipt-data:jpa")?.name = "jpa"
 include("receipt-batch")
+include("receipt-data:mybatis")
+findProject(":receipt-data:mybatis")?.name = "mybatis"
+include("receipt-data:jdbc")
+findProject(":receipt-data:jdbc")?.name = "jdbc"

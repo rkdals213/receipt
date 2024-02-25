@@ -5,10 +5,10 @@ import com.example.consts.ReceiptType
 import com.example.domain.Deposit
 import com.example.domain.ReceiptByDeposit
 import com.example.domain.command.ByDeposit
-import com.example.infrastructure.mapper.toDomain
-import com.example.repository.DepositJpaRepository
-import com.example.repository.ReceiptJpaRepository
-import com.example.repository.ReceiptTargetEntityRepository
+import com.example.repository.DepositJdbcRepository
+import com.example.repository.ReceiptJdbcRepository
+import com.example.repository.ReceiptTargetEntityDao
+import com.example.repository.mapper.toDomain
 import com.example.utils.generateUUID
 import org.springframework.batch.core.configuration.annotation.StepScope
 import org.springframework.batch.item.Chunk
@@ -19,9 +19,9 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class ReceiptWithAccountWriter(
     private val receiptJobParameter: ReceiptJobParameter,
-    private val receiptTargetEntityRepository: ReceiptTargetEntityRepository,
-    private val receiptJpaRepository: ReceiptJpaRepository,
-    private val depositJpaRepository: DepositJpaRepository,
+    private val receiptTargetEntityRepository: ReceiptTargetEntityDao,
+    private val receiptJdbcRepository: ReceiptJdbcRepository,
+    private val depositJdbcRepository: DepositJdbcRepository,
 ) {
 
     @Bean
@@ -49,7 +49,7 @@ class ReceiptWithAccountWriter(
                     accountNumber = item.accountNumber,
                     bank = item.bank
                 )
-                depositJpaRepository.save(deposit)
+                depositJdbcRepository.save(deposit)
 
                 val byDeposit = ByDeposit(
                     receiptType = ReceiptType.DEPOSIT,
@@ -61,7 +61,7 @@ class ReceiptWithAccountWriter(
                 )
                 receiptByDeposit.receipt(byDeposit)
 
-                receiptJpaRepository.save(receiptByDeposit)
+                receiptJdbcRepository.save(receiptByDeposit)
             }
         }
     }

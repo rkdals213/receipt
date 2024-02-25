@@ -1,9 +1,9 @@
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: test
     import:
-      - application-jpa-local.yml
+      - application-jdbc-test.yml
 
 logging:
   level:

@@ -1,4 +1,4 @@
-package com.example.infrastructure.mapper
+package com.example.repository.mapper
 
 import com.example.domain.ReceiptTarget
 import com.example.entity.ReceiptTargetEntity

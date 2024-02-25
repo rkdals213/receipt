@@ -2,12 +2,11 @@ package com.example.repository
 
 import com.example.domain.Deposit
 import com.example.entity.DepositEntity
-import com.example.repository.DepositEntityRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-class DepositJpaRepository(
-    private val depositEntityRepository: DepositEntityRepository
+class DepositJdbcRepository(
+    private val depositEntityDao: DepositEntityDao
 ) {
     fun save(deposit: Deposit) {
         val depositEntity = DepositEntity(
@@ -19,6 +18,6 @@ class DepositJpaRepository(
             accountNumber = deposit.accountNumber,
             bank = deposit.bank
         )
-        depositEntityRepository.save(depositEntity)
+        depositEntityDao.save(depositEntity)
     }
 }

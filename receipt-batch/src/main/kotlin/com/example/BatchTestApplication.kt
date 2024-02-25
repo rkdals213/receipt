@@ -28,7 +28,7 @@ fun main(args: Array<String>) {
 }
 
 @Component
-@Profile("batch")
+@Profile("local")
 class InitService(
     private val init: Init
 ) {
