@@ -5,7 +5,6 @@ import jakarta.annotation.PostConstruct
 import jakarta.persistence.EntityManager
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
@@ -14,7 +13,6 @@ import java.math.BigDecimal
 import kotlin.system.exitProcess
 
 @SpringBootApplication
-@ConfigurationPropertiesScan
 class BatchTestApplication
 
 fun main(args: Array<String>) {
