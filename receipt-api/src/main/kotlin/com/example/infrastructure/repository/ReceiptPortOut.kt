@@ -1,7 +1,7 @@
 package com.example.infrastructure.repository
 
-import com.example.command.LoadReceiptLogCommand
-import com.example.command.LoadReceiptTargetCommand
+import com.example.usecase.command.LoadReceiptLogCommand
+import com.example.usecase.command.LoadReceiptTargetCommand
 import com.example.infrastructure.repository.jpa.ReceiptJpaRepository
 import com.example.domain.Receipt
 import com.example.domain.ReceiptByAdvancedPayment

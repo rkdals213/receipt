@@ -1,8 +1,8 @@
 package com.example.usecase
 
 import com.example.infrastructure.feign.AccountingClient
-import com.example.command.LoadReceiptLogCommand
-import com.example.command.LoadReceiptTargetCommand
+import com.example.usecase.command.LoadReceiptLogCommand
+import com.example.usecase.command.LoadReceiptTargetCommand
 import com.example.consts.AdvancedPaymentStatus
 import com.example.consts.ReceiptType
 import com.example.domain.Deposit

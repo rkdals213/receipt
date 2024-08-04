@@ -1,4 +1,4 @@
-package com.example.command
+package com.example.usecase.command
 
 data class LoadReceiptTargetCommand(
     val paymentId: String,
